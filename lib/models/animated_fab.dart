@@ -98,8 +98,8 @@ class _AnimatedFABState extends State<AnimatedFAB> with SingleTickerProviderStat
                 child: AnimatedContainer(
                   duration: const Duration(microseconds: 375),
                   curve: Curves.easeOut,
-                  height: toggle ? 70 : 60,
-                  width: toggle ? 70 : 60,
+                  height: 55,
+                  width: 55,
                   decoration: BoxDecoration(
                     color: Colors.yellow[600],
                     borderRadius: BorderRadius.circular(60),
@@ -108,7 +108,7 @@ class _AnimatedFABState extends State<AnimatedFAB> with SingleTickerProviderStat
                     color: Colors.transparent,
                     child: IconButton(
                       splashColor: Colors.black54,
-                      splashRadius: 31,
+                      splashRadius: 25,
                       onPressed: () {
                         setState(() {
                           if(toggle) {

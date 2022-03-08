@@ -13,12 +13,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height(context),
-      width: width(context),
-      child: const Center(
-        child: AnimatedFAB(),
-      ),
+    return const Center(
+      child: Text("Community Screen"),
     );
   }
 }
