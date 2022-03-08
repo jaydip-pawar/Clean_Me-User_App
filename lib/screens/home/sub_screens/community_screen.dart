@@ -1,3 +1,5 @@
+import 'package:clean_me/constants.dart';
+import 'package:clean_me/models/animated_fab.dart';
 import 'package:flutter/material.dart';
 
 class CommunityScreen extends StatefulWidget {
@@ -8,10 +10,15 @@ class CommunityScreen extends StatefulWidget {
 }
 
 class _CommunityScreenState extends State<CommunityScreen> {
+
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Community Screen"),
+    return SizedBox(
+      height: height(context),
+      width: width(context),
+      child: const Center(
+        child: AnimatedFAB(),
+      ),
     );
   }
 }
