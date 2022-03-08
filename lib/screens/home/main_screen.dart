@@ -1,3 +1,7 @@
+import 'package:clean_me/screens/home/sub_screens/community_screen.dart';
+import 'package:clean_me/screens/home/sub_screens/event_screen.dart';
+import 'package:clean_me/screens/home/sub_screens/home_screen.dart';
+import 'package:clean_me/screens/home/sub_screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -14,15 +18,11 @@ class MainScreen extends StatelessWidget {
 
     List<Widget> _buildScreens() {
       return [
-        Container(),
-        Container(),
-        Container(),
-        Container(),
-        Container(),
-        // HomePage(),
-        // FavouriteScreen(),
-        // MyOrders(),
-        // ProfileScreen(),
+        const HomeScreen(),
+        const CommunityScreen(),
+        FloatingActionButton(onPressed: () {}, child: Icon(Icons.add),),
+        const EventScreen(),
+        const ProfileScreen()
       ];
     }
 
@@ -48,13 +48,13 @@ class MainScreen extends StatelessWidget {
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.event_outlined),
-          title: ("Make an Event"),
+          title: ("Event"),
           activeColorPrimary: Theme.of(context).primaryColor,
           inactiveColorPrimary: CupertinoColors.systemGrey,
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(CupertinoIcons.profile_circled),
-          title: ("My Account"),
+          title: ("Profile"),
           activeColorPrimary: Theme.of(context).primaryColor,
           inactiveColorPrimary: CupertinoColors.systemGrey,
         ),
@@ -62,10 +62,10 @@ class MainScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      // floatingActionButton: Padding(
-      //   padding: const EdgeInsets.only(bottom: 56),
-      //   child: CartNotification(),
-      // ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 56),
+        child: Container(width: 10, height: 10, color: Colors.black,),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: PersistentTabView(
         context,
