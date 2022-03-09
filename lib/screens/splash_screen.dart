@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:clean_me/models/navigate_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -24,36 +25,29 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          Container(
-            decoration: const BoxDecoration(color: Colors.white),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 2,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    CircleAvatar(
-                      backgroundColor: Colors.yellow,
-                      radius: 50.0,
-                      child: Icon(
-                        Icons.shopping_cart,
-                        color: Colors.greenAccent,
-                        size: 50.0,
-                      ),
-                    )
-                  ],
+      backgroundColor: Colors.white,
+
+      body: Center(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/images/10150.jpg',width: MediaQuery.of(context).size.width*.5,),
+                Center(
+                  child: Container(
+                      child: const Text(
+                        "CLEAN-ME "
+
+                        ,
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),
+                      )
+                  ),
                 ),
-              )
-            ],
-          ),
-        ],
+              ]
+          )
+
       ),
+
     );
+
   }
 }
