@@ -34,6 +34,7 @@ flutter:
 
   assets:
     - assets/images/10150.jpg
+    - assets/images/cool.jpg
   #   - images/a_dot_ham.jpeg
 
   # fonts:

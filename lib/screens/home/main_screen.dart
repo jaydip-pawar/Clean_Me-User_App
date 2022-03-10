@@ -2,7 +2,7 @@ import 'package:clean_me/models/animated_fab.dart';
 import 'package:clean_me/screens/home/sub_screens/community_screen.dart';
 import 'package:clean_me/screens/home/sub_screens/event_screen.dart';
 import 'package:clean_me/screens/home/sub_screens/home_screen.dart';
-import 'package:clean_me/screens/home/sub_screens/profile_screen.dart';
+import 'package:clean_me/screens/home/sub_screens/ProfilePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class _MainScreenState extends State<MainScreen> {
     const HomeScreen(),
     const CommunityScreen(),
     const EventScreen(),
-    const ProfileScreen(),
+    ProfilePage(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
 
@@ -141,7 +141,7 @@ class _MainScreenState extends State<MainScreen> {
                     onPressed: () {
                       setState(() {
                         currentScreen =
-                            const ProfileScreen(); // if user taps on this dashboard tab will be active
+                            ProfilePage(); // if user taps on this dashboard tab will be active
                         currentTab = 3;
                       });
                     },
