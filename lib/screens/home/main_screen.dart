@@ -18,14 +18,14 @@ class _MainScreenState extends State<MainScreen> {
 
   // to keep track of active tab index
   final List<Widget> screens = [
-    const HomeScreen(),
+    MyHomePage(),
     const CommunityScreen(),
     const EventScreen(),
     ProfilePage(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
 
-  Widget currentScreen = const HomeScreen();
+  Widget currentScreen = MyHomePage();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = const HomeScreen(); // if user taps on this dashboard tab will be active
+                        currentScreen = MyHomePage(); // if user taps on this dashboard tab will be active
                         currentTab = 0;
                       });
                     },
