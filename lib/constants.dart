@@ -1,3 +1,4 @@
+import 'package:clean_me/models/location_permission.dart';
 import 'package:clean_me/models/navigate_page.dart';
 import 'package:clean_me/screens/login/login_screen.dart';
 import 'package:clean_me/screens/login/signup_screen.dart';
@@ -20,6 +21,7 @@ const kStoreCardStyle = TextStyle(
 Map<String, Widget Function(BuildContext)> routes = {
   SplashScreen.id : (context) => const SplashScreen(),
   NavigatePage.id : (context) => const NavigatePage(),
+  LocationPermission.id : (context) => const LocationPermission(),
   LoginScreen.id : (context) => LoginScreen(),
   SignupPage.id : (context) => SignupPage(),
 };

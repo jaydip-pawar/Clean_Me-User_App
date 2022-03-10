@@ -1,74 +1,82 @@
-import 'package:flutter/cupertino.dart';
+import 'package:clean_me/constants.dart';
+import 'package:clean_me/providers/location_provider.dart';
+import 'package:clean_me/screens/home/widgets/my_appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:clean_me/screens/home/sub_screens/SettingPage.dart';
-import 'package:clean_me/screens/home/sub_screens/SharePage.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
-
-class MyHomePage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomeScreenState extends State<HomeScreen> {
+  late GoogleMapController googleMapController;
+
+  static const CameraPosition initialCameraPosition =
+      CameraPosition(target: LatLng(37, -122), zoom: 50);
+
+  Set<Marker> markers = {};
+
   @override
   Widget build(BuildContext context) {
+    final locationProvider = Provider.of<LocationProvider>(context);
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("App Dropdown Menu"),
-          actions: [
-            Theme(
-              data: Theme.of(context).copyWith(
-                  textTheme: TextTheme().apply(bodyColor: Colors.lightGreenAccent),
-                  dividerColor: Colors.green,
-                  iconTheme: IconThemeData(color: Colors.green)),
-              child: PopupMenuButton<int>(
-                color: Colors.green,
-                itemBuilder: (context) => [
-                  PopupMenuItem<int>(value: 0, child: Text("Setting")),
-                  PopupMenuItem<int>(
-                      value: 1, child: Text("Help Guide")),
-                  PopupMenuDivider(),
-                  PopupMenuItem<int>(
-                      value: 2,
-                      child: Row(
-                        children: const [
-                          Icon(
-                            Icons.share,
-                            color: Colors.greenAccent,
-                          ),
-                          SizedBox(
-                            width: 7,
-                          ),
-                          Text("Share")
-                        ],
-                      )),
-                ],
-                onSelected: (item) => SelectedItem(context, item),
-              ),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(56),
+        child: MyAppBar(),
+      ),
+      body: Container(
+        height: height(context) * 0.6,
+        child: Stack(
+          children: [
+            GoogleMap(
+              initialCameraPosition: initialCameraPosition,
+              markers: markers,
+              zoomControlsEnabled: false,
+              mapType: MapType.normal,
+              onMapCreated: (GoogleMapController controller) {
+                googleMapController = controller;
+              },
             ),
+            Align(
+              alignment: const Alignment(0.9, 0.8),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.my_location_sharp,
+                  size: 40,
+                ),
+                onPressed: () {
+                  googleMapController.animateCamera(
+                    CameraUpdate.newCameraPosition(
+                      CameraPosition(
+                        target: LatLng(
+                          locationProvider.latitude,
+                          locationProvider.longitude,
+                        ),
+                        zoom: 14,
+                      ),
+                    ),
+                  );
+                  markers.clear();
+                  markers.add(
+                    Marker(
+                      markerId: const MarkerId("currentLocation"),
+                      position: LatLng(
+                        locationProvider.latitude,
+                        locationProvider.longitude,
+                      ),
+                    ),
+                  );
+                  setState(() {});
+                },
+              ),
+            )
           ],
         ),
-        body: Container(),
+      ),
     );
-  }
-
-  void SelectedItem(BuildContext context, item) {
-    switch (item) {
-      case 0:
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => SettingPage()));
-        break;
-      case 1:
-        print("Help Guide");
-        break;
-      case 2:
-        print("Share Page");
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => SharePage()),
-                (route) => false);
-        break;
-    }
   }
 }

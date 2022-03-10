@@ -5,9 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationProvider with ChangeNotifier {
-  final firestoreInstance = FirebaseFirestore.instance;
-  var firebaseUser = FirebaseAuth.instance.currentUser;
-  late DocumentSnapshot snapshot;
 
   void login(String email, String password, BuildContext context) async {
     try {
@@ -86,61 +83,10 @@ class AuthenticationProvider with ChangeNotifier {
     }
   }
 
-  void addLocation(
-      double latitude, double longitude, String address, String streetAddress) {
-    firestoreInstance.collection("customer").doc(firebaseUser!.uid).update({
-      "location": GeoPoint(latitude, longitude),
-      "address": address,
-      "latitude": latitude,
-      "longitude": longitude,
-      "street_address": streetAddress,
-    }).then((_) {
-      print("successfully added location!");
-    });
-  }
-
-  void addProfileData(String userName, String imageUrl) {
-    firestoreInstance.collection("customer").doc(firebaseUser!.uid).set({
-      "user_name": userName,
-      "profile_pic": imageUrl,
-    }).then((_) {
-      print("successfully added profile data!");
-    });
-  }
-
-  // String uploadProfilePic(PickedFile imageFile, String userName) {
-  //   String _basePath = Path.basename(imageFile.path);
-  //   FirebaseStorage _firebaseStorageRef = FirebaseStorage.instance;
-  //   Reference _reference =
-  //       _firebaseStorageRef.ref().child('Profile/$_basePath');
-  //   UploadTask _uploadTask = _reference.putFile(File(imageFile.path));
-  //   _uploadTask.whenComplete(() async {
-  //     String _downloadLink = await _reference.getDownloadURL();
-  //     addProfileData(userName, _downloadLink);
-  //     print("url Set completed......");
-  //   });
-  //   return "";
-  // }
-
   void signOut() async {
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().disconnect();
     await GoogleSignIn().signOut();
   }
 
-  // Future<void> savePrefs(String name) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   prefs.setString("user_name", name);
-  // }
-
-  Future<DocumentSnapshot> getUserDetails() async {
-    DocumentSnapshot result = await FirebaseFirestore.instance
-        .collection('customer')
-        .doc(firebaseUser!.uid)
-        .get();
-    this.snapshot = result;
-    notifyListeners();
-
-    return result;
-  }
 }

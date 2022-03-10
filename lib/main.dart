@@ -1,5 +1,6 @@
 import 'package:clean_me/constants.dart';
 import 'package:clean_me/providers/authentication_provider.dart';
+import 'package:clean_me/providers/location_provider.dart';
 import 'package:clean_me/screens/splash_screen.dart';
 import 'package:clean_me/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,15 +11,14 @@ import 'package:clean_me/screens/home/sub_screens/ProfilePage.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
-
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (_) => AuthenticationProvider(),
         ),
-        // ChangeNotifierProvider(
-        //   create: (_) => CartProvider(),
-        // ),
+        ChangeNotifierProvider(
+          create: (_) => LocationProvider(),
+        ),
         // ChangeNotifierProvider(
         //   create: (_) => HotelProvider(),
         // ),
