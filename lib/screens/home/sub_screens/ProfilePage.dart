@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'dart:math' as math;
-import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class ProfilePage extends StatelessWidget {
+  const ProfilePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,9 +28,8 @@ class ProfilePage extends StatelessWidget {
               ),
             ],
           ),
-
           Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             width: MediaQuery.of(context).size.width / 3,
             height: MediaQuery.of(context).size.width / 3,
             decoration: BoxDecoration(
@@ -57,9 +55,8 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ),
-
           Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: LinearPercentIndicator(
                 width: 180.0,
                 //lineWidth: 15.0,
@@ -85,9 +82,6 @@ class ProfilePage extends StatelessWidget {
               ),
             ],
           ),
-
-
-
         ],
       ),
     );

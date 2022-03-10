@@ -1,8 +1,8 @@
 import 'package:clean_me/models/animated_fab.dart';
 import 'package:clean_me/screens/home/sub_screens/community_screen.dart';
 import 'package:clean_me/screens/home/sub_screens/event_screen.dart';
-import 'package:clean_me/screens/home/sub_screens/home_screen.dart';
 import 'package:clean_me/screens/home/sub_screens/ProfilePage.dart';
+import 'package:clean_me/screens/home/sub_screens/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -18,14 +18,14 @@ class _MainScreenState extends State<MainScreen> {
 
   // to keep track of active tab index
   final List<Widget> screens = [
-    MyHomePage(),
+    const HomeScreen(),
     const CommunityScreen(),
     const EventScreen(),
-    ProfilePage(),
+    const ProfilePage(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
 
-  Widget currentScreen = MyHomePage();
+  Widget currentScreen = const HomeScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
         child: currentScreen,
         bucket: bucket,
       ),
-      floatingActionButton: AnimatedFAB(),
+      floatingActionButton: const AnimatedFAB(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         child: SizedBox(
@@ -49,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = MyHomePage(); // if user taps on this dashboard tab will be active
+                        currentScreen = const HomeScreen(); // if user taps on this dashboard tab will be active
                         currentTab = 0;
                       });
                     },
@@ -141,7 +141,7 @@ class _MainScreenState extends State<MainScreen> {
                     onPressed: () {
                       setState(() {
                         currentScreen =
-                            ProfilePage(); // if user taps on this dashboard tab will be active
+                            const ProfilePage(); // if user taps on this dashboard tab will be active
                         currentTab = 3;
                       });
                     },
