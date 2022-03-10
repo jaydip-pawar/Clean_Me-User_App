@@ -1,160 +1,78 @@
 import 'package:flutter/material.dart';
-
-class ProfilePage extends StatelessWidget {
-  Widget textfield({@required hintText}) {
-    return Material(
-      elevation: 4,
-      shadowColor: Colors.grey,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: TextField(
-        decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: const TextStyle(
-              letterSpacing: 2,
-              color: Colors.black54,
-              fontWeight: FontWeight.bold,
-            ),
-            fillColor: Colors.white30,
-            filled: true,
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                borderSide: BorderSide.none)),
-      ),
-    );
-  }
-
+import 'package:flutter/widgets.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'dart:math' as math;
+import 'package:percent_indicator/linear_percent_indicator.dart';
+class ProfilePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Color(0xff555555),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {},
-        ),
+          title:const Text("Profile"),
+          backgroundColor: Colors.greenAccent
       ),
-      body: Stack(
-        alignment: Alignment.center,
+      body: Column(
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                height: 450,
-                width: double.infinity,
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    textfield(
-                      hintText: 'Level 5',
-                    ),
-                    textfield(
-                      hintText: 'George Thomas',
-                    ),
-                    textfield(
-                      hintText: 'George@123gmail.com',
-                    ),
-                    textfield(
-                      hintText: 'Thane',
-                    ),
-                    Container(
-                      height: 55,
-                      width: double.infinity,
-                      child: RaisedButton(
-                        onPressed: () {},
-                        color: Colors.black54,
-                        child: const Center(
-                          child: Text(
-                            "Update",
-                            style: TextStyle(
-                              fontSize: 23,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+
+          
+
+          Container(
+            padding: EdgeInsets.all(20) ,
+              child: LinearPercentIndicator(
+                width: 180.0,
+                //lineWidth: 15.0,
+                lineHeight: 15,
+                percent: 60/100,
+                animation: true,
+                animationDuration: 2000,
+                leading: const Text("60%",style: TextStyle(fontSize: 20
+                ),),
+                trailing: const Text("Way to Level 6!",style: TextStyle(fontSize: 20,color:
+                Colors.greenAccent),),
+                progressColor: Colors.deepOrangeAccent,
+
               )
-            ],
-          ),
-          CustomPaint(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-            ),
-            painter: HeaderCurvedContainer(),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  "Profile",
-                  style: TextStyle(
-                    fontSize: 35,
-                    letterSpacing: 1.5,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(10.0),
-                width: MediaQuery.of(context).size.width / 2,
-                height: MediaQuery.of(context).size.width / 2,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 5),
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                  image: const DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage('assets/images/cool.jpg'),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 270, left: 184),
-            child: CircleAvatar(
-              backgroundColor: Colors.black54,
-              child: IconButton(
-                icon: const Icon(
-                  Icons.edit,
-                  color: Colors.white,
-                ),
-                onPressed: () {},
-              ),
-            ),
+
           )
+
+
+
+
         ],
       ),
     );
   }
 }
 
-class HeaderCurvedContainer extends CustomPainter {
+//Costom CLipper class with Path
+class WaveClipper extends CustomClipper<Path>{
   @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = Color(0xff328d47);
-    Path path = Path()
-      ..relativeLineTo(0, 150)
-      ..quadraticBezierTo(size.width / 2, 225, size.width, 150)
-      ..relativeLineTo(0, -150)
-      ..close();
-    canvas.drawPath(path, paint);
+  Path getClip(Size size) {
+    debugPrint(size.width.toString());
+    var path = new Path();
+    path.lineTo(0, size.height); //start path with this if you are making at bottom
+    var firstStart = Offset(size.width / 5, size.height);
+    //fist point of quadratic bezier curve
+    var firstEnd = Offset(size.width / 2.25, size.height - 50.0);
+    //second point of quadratic bezier curve
+    path.quadraticBezierTo(firstStart.dx, firstStart.dy,
+        firstEnd.dx, firstEnd.dy);
+
+    var secondStart = Offset(size.width - (size.width / 3.24),
+        size.height - 105);
+    //third point of quadratic bezier curve
+    var secondEnd = Offset(size.width, size.height - 10);
+    //fourth point of quadratic bezier curve
+    path.quadraticBezierTo(secondStart.dx, secondStart.dy,
+        secondEnd.dx, secondEnd.dy);
+    path.lineTo(size.width, 0); //end with this path if you are making wave at bottom
+    path.close();
+    return path;
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false; //if new instance have different instance than old instance
+    //then you must return true;
+  }
 }
