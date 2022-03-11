@@ -7,7 +7,6 @@ import 'package:clean_me/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:clean_me/screens/home/sub_screens/ProfilePage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
