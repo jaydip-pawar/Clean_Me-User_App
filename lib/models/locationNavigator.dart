@@ -40,6 +40,7 @@ class _LocationNavigatePageState extends State<LocationNavigatePage> {
               }
               return const lc.LocationPermission();
             }
+            print("Hey");
             return Container();
           },
         );

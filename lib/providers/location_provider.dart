@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:geocode/geocode.dart';
 import 'package:location/location.dart';
@@ -10,10 +12,10 @@ class LocationProvider with ChangeNotifier {
   PermissionStatus permissionGranted = PermissionStatus.denied;
   LocationData? userLocation;
   Address address = Address();
+  late StreamSubscription<LocationData> stream;
+  Location location = Location();
 
   Future<String> getUserCurrentLocation() async {
-    Location location = Location();
-
     // Check if location service is enable
     serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
@@ -34,14 +36,20 @@ class LocationProvider with ChangeNotifier {
 
     final _locationData = await location.getLocation();
     userLocation = _locationData;
-    location.onLocationChanged.listen((LocationData currentLocation) {
+    stream = location.onLocationChanged.listen((LocationData currentLocation) {
       userLocation = currentLocation;
+      Future.delayed(const Duration(seconds: 1));
       getAddress(userLocation!.latitude, userLocation!.longitude).then((value) {
         address = value;
       });
       notifyListeners();
+      Future.delayed(const Duration(seconds: 2));
     });
     return "Success";
+  }
+
+  void locationDispose() {
+    stream.cancel();
   }
 
   Future<Address> getAddress(latitude, longitude) async {
@@ -49,6 +57,7 @@ class LocationProvider with ChangeNotifier {
     this.longitude = longitude;
     GeoCode geoCode = GeoCode();
     Address address = await geoCode.reverseGeocoding(latitude: latitude, longitude: longitude);
+    print(address.streetAddress);
     return address;
   }
 

@@ -1,11 +1,7 @@
 import 'package:clean_me/models/locationNavigator.dart';
-import 'package:clean_me/models/location_permission.dart';
-import 'package:clean_me/screens/home/main_screen.dart';
 import 'package:clean_me/screens/login/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class NavigatePage extends StatefulWidget {
   static const String id = 'navigate-screen';

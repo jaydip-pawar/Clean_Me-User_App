@@ -1,10 +1,13 @@
 import 'package:clean_me/models/animated_fab.dart';
+import 'package:clean_me/providers/location_provider.dart';
 import 'package:clean_me/screens/home/sub_screens/community_screen.dart';
 import 'package:clean_me/screens/home/sub_screens/event_screen.dart';
 import 'package:clean_me/screens/home/sub_screens/ProfilePage.dart';
 import 'package:clean_me/screens/home/sub_screens/home_screen.dart';
+import 'package:clean_me/screens/home/widgets/my_appbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -28,8 +31,20 @@ class _MainScreenState extends State<MainScreen> {
   Widget currentScreen = const HomeScreen();
 
   @override
+  void dispose() {
+    super.dispose();
+    print("dispose");
+    final locationProvider = Provider.of<LocationProvider>(context, listen: false);
+    locationProvider.locationDispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(56),
+        child: MyAppBar(),
+      ),
       body: PageStorage(
         child: currentScreen,
         bucket: bucket,

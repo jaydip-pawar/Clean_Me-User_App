@@ -1,16 +1,19 @@
 import 'package:clean_me/models/dialog_box.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationProvider with ChangeNotifier {
 
   void login(String email, String password, BuildContext context) async {
+    EasyLoading.show(status: "Please wait...");
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      EasyLoading.showSuccess("Login Successful");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
+        EasyLoading.dismiss();
         return showDialog(
           context: context,
           builder: (_) => const CustomAlertDialog(
@@ -21,6 +24,7 @@ class AuthenticationProvider with ChangeNotifier {
           ),
         );
       } else if (e.code == 'wrong-password') {
+        EasyLoading.dismiss();
         return showDialog(
           context: context,
           builder: (_) => const CustomAlertDialog(
@@ -34,13 +38,14 @@ class AuthenticationProvider with ChangeNotifier {
   }
 
   void signUp(String email, String password, BuildContext context) async {
+    EasyLoading.show(status: "Please wait...");
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+      EasyLoading.showSuccess("Signup Successful");
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
+      if (e.code == 'email-already-in-use') {
+        EasyLoading.dismiss();
         return showDialog(
           context: context,
           builder: (_) => const CustomAlertDialog(
@@ -51,34 +56,7 @@ class AuthenticationProvider with ChangeNotifier {
         );
       }
     } catch (e) {
-      print(e);
-    }
-  }
-
-  void signInWithGoogle() async {
-    User _user;
-
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-
-    // Create a new credential
-    final OAuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-
-    try {
-      // Once signed in, return the UserCredential
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-      _user = userCredential.user!;
-      final uid = _user.uid;
-      await FirebaseFirestore.instance.collection("customer").doc(uid).get();
-    } catch (e) {
+      EasyLoading.dismiss();
       print(e);
     }
   }

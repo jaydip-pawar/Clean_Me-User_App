@@ -2,7 +2,6 @@ import 'package:clean_me/constants.dart';
 import 'package:clean_me/providers/authentication_provider.dart';
 import 'package:clean_me/providers/location_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
 class MyAppBar extends StatefulWidget {
