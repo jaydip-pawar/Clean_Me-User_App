@@ -1,4 +1,5 @@
 import 'package:clean_me/constants.dart';
+import 'package:clean_me/popup_menuitems/about_us.dart';
 import 'package:clean_me/providers/authentication_provider.dart';
 import 'package:clean_me/providers/location_provider.dart';
 import 'package:clean_me/screens/splash_screen.dart';
@@ -58,7 +59,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'E-Grocery',
       theme: theme(),
-      home: const SplashScreen(),
+      home: const AboutUs(),
       routes: routes,
     );
   }

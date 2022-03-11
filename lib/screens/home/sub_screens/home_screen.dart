@@ -1,5 +1,6 @@
 import 'package:clean_me/constants.dart';
 import 'package:clean_me/providers/location_provider.dart';
+import 'package:clean_me/screens/home/widgets/complaint_list.dart';
 import 'package:clean_me/screens/home/widgets/my_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -28,54 +29,66 @@ class _HomeScreenState extends State<HomeScreen> {
         preferredSize: Size.fromHeight(56),
         child: MyAppBar(),
       ),
-      body: Container(
-        height: height(context) * 0.6,
-        child: Stack(
-          children: [
-            GoogleMap(
-              initialCameraPosition: initialCameraPosition,
-              markers: markers,
-              zoomControlsEnabled: false,
-              mapType: MapType.normal,
-              onMapCreated: (GoogleMapController controller) {
-                googleMapController = controller;
+      body: Column(
+        children: [
+          SizedBox(
+            height: height(context) * 0.5,
+            child: Stack(
+              children: [
+                GoogleMap(
+                  initialCameraPosition: initialCameraPosition,
+                  markers: markers,
+                  zoomControlsEnabled: false,
+                  mapType: MapType.normal,
+                  onMapCreated: (GoogleMapController controller) {
+                    googleMapController = controller;
+                  },
+                ),
+                Align(
+                  alignment: const Alignment(0.9, 0.8),
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.my_location_sharp,
+                      size: 40,
+                    ),
+                    onPressed: () {
+                      googleMapController.animateCamera(
+                        CameraUpdate.newCameraPosition(
+                          CameraPosition(
+                            target: LatLng(
+                              locationProvider.latitude,
+                              locationProvider.longitude,
+                            ),
+                            zoom: 14,
+                          ),
+                        ),
+                      );
+                      markers.clear();
+                      markers.add(
+                        Marker(
+                          markerId: const MarkerId("currentLocation"),
+                          position: LatLng(
+                            locationProvider.latitude,
+                            locationProvider.longitude,
+                          ),
+                        ),
+                      );
+                      setState(() {});
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Flexible(
+            child: ListView.builder(
+              itemCount: 5,
+              itemBuilder: (BuildContext context, int index) {
+                return ComplaintList();
               },
             ),
-            Align(
-              alignment: const Alignment(0.9, 0.8),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.my_location_sharp,
-                  size: 40,
-                ),
-                onPressed: () {
-                  googleMapController.animateCamera(
-                    CameraUpdate.newCameraPosition(
-                      CameraPosition(
-                        target: LatLng(
-                          locationProvider.latitude,
-                          locationProvider.longitude,
-                        ),
-                        zoom: 14,
-                      ),
-                    ),
-                  );
-                  markers.clear();
-                  markers.add(
-                    Marker(
-                      markerId: const MarkerId("currentLocation"),
-                      position: LatLng(
-                        locationProvider.latitude,
-                        locationProvider.longitude,
-                      ),
-                    ),
-                  );
-                  setState(() {});
-                },
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
