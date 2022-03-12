@@ -31,14 +31,6 @@ class _MainScreenState extends State<MainScreen> {
   Widget currentScreen = const HomeScreen();
 
   @override
-  void dispose() {
-    super.dispose();
-    print("dispose");
-    final locationProvider = Provider.of<LocationProvider>(context, listen: false);
-    locationProvider.locationDispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(

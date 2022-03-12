@@ -72,7 +72,7 @@ class _AnimatedFABState extends State<AnimatedFAB> with SingleTickerProviderStat
                   color: Colors.black87,
                   borderRadius: BorderRadius.circular(40),
                 ),
-                child: const Icon(Icons.message, color: Colors.white,),
+                child: const Icon(Icons.camera, color: Colors.white,),
               ),
             ),
             AnimatedAlign(
@@ -88,7 +88,11 @@ class _AnimatedFABState extends State<AnimatedFAB> with SingleTickerProviderStat
                   color: Colors.black87,
                   borderRadius: BorderRadius.circular(40),
                 ),
-                child: const Icon(Icons.message, color: Colors.white,),
+                child: IconButton(
+                  color: Colors.white,
+                  icon: const Icon(Icons.event),
+                  onPressed: (){},
+                ),
               ),
             ),
             Align(

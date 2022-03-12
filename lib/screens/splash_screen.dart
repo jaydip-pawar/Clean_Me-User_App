@@ -1,8 +1,8 @@
-import 'dart:async';
 import 'package:clean_me/constants.dart';
 import 'package:clean_me/models/navigate_page.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:clean_me/providers/location_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String id = 'splash-screen';
@@ -14,19 +14,11 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    timer();
-  }
-
-  timer() {
-    Timer(const Duration(seconds: 5),
-        () => Navigator.pushReplacementNamed(context, NavigatePage.id));
-  }
 
   @override
   Widget build(BuildContext context) {
+    final locationProvider = Provider.of<LocationProvider>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
@@ -46,6 +38,22 @@ class _SplashScreenState extends State<SplashScreen> {
                   fontStyle: FontStyle.italic,
                 ),
               ),
+            ),
+            FutureBuilder(
+              future: locationProvider.getUserCurrentLocation(),
+              builder: (context, snapshot) {
+                if(snapshot.hasData) {
+                  WidgetsBinding.instance!.addPostFrameCallback((_) {
+                    Navigator.of(context).pushReplacementNamed(NavigatePage.id);
+                  });
+
+                }
+                return const SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(),
+                  );
+              },
             ),
           ],
         ),

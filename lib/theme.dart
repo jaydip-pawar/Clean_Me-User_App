@@ -7,6 +7,7 @@ ThemeData theme() {
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: appBarTheme(),
     textTheme: textTheme(),
+    fontFamily: 'Netverbatim',
     // inputDecorationTheme: inputDecorationTheme(),
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );

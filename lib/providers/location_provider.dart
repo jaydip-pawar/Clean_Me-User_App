@@ -12,6 +12,7 @@ class LocationProvider with ChangeNotifier {
   PermissionStatus permissionGranted = PermissionStatus.denied;
   LocationData? userLocation;
   Address address = Address();
+  GeoCode geoCode = GeoCode();
   late StreamSubscription<LocationData> stream;
   Location location = Location();
 
@@ -54,7 +55,6 @@ class LocationProvider with ChangeNotifier {
   Future<Address> getAddress(latitude, longitude) async {
     this.latitude = latitude;
     this.longitude = longitude;
-    GeoCode geoCode = GeoCode();
     Address address = await geoCode.reverseGeocoding(latitude: latitude, longitude: longitude);
     return address;
   }
