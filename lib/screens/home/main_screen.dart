@@ -1,7 +1,7 @@
 import 'package:clean_me/models/animated_fab.dart';
 import 'package:clean_me/providers/location_provider.dart';
 import 'package:clean_me/screens/home/sub_screens/community_screen.dart';
-import 'package:clean_me/screens/home/sub_screens/event_screen.dart';
+import 'package:clean_me/screens/home/sub_screens/eventPage.dart';
 import 'package:clean_me/screens/home/sub_screens/ProfilePage.dart';
 import 'package:clean_me/screens/home/sub_screens/home_screen.dart';
 import 'package:clean_me/screens/home/widgets/my_appbar.dart';
@@ -23,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> screens = [
     const HomeScreen(),
     const CommunityScreen(),
-    const EventScreen(),
+    EventScreen(),
     const ProfilePage(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
@@ -128,7 +128,7 @@ class _MainScreenState extends State<MainScreen> {
                     onPressed: () {
                       setState(() {
                         currentScreen =
-                            const EventScreen(); // if user taps on this dashboard tab will be active
+                             EventScreen(); // if user taps on this dashboard tab will be active
                         currentTab = 2;
                       });
                     },

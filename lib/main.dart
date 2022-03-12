@@ -2,6 +2,8 @@ import 'package:clean_me/constants.dart';
 import 'package:clean_me/popup_menuitems/about_us.dart';
 import 'package:clean_me/providers/authentication_provider.dart';
 import 'package:clean_me/providers/location_provider.dart';
+import 'package:clean_me/screens/home/main_screen.dart';
+import 'package:clean_me/screens/home/sub_screens/eventPage.dart';
 import 'package:clean_me/screens/splash_screen.dart';
 import 'package:clean_me/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -58,8 +60,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'E-Grocery',
-      theme: theme(),
-      home: const SplashScreen(),
+      theme: ThemeData(fontFamily: 'Netverbatim'),
+      home: MainScreen(),
       routes: routes,
       builder: EasyLoading.init(),
     );

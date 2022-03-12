@@ -43,7 +43,11 @@ flutter:
     - assets/images/
     - assets/gifs/
 
-  # fonts:
+fonts:
+  - family: Netverbatim
+    fonts:
+      - asset: assets/Netverbatim_medium.ttf
+
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
