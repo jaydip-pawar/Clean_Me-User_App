@@ -13,7 +13,6 @@ class NavigatePage extends StatefulWidget {
 }
 
 class _NavigatePageState extends State<NavigatePage> {
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -25,7 +24,7 @@ class _NavigatePageState extends State<NavigatePage> {
         if (userSnapshot.hasData) {
           return const LocationNavigatePage();
         }
-        return LoginScreen();
+        return const LoginScreen();
       },
     );
   }

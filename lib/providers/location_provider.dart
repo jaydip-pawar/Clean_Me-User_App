@@ -38,7 +38,6 @@ class LocationProvider with ChangeNotifier {
     userLocation = _locationData;
     stream = location.onLocationChanged.listen((LocationData currentLocation) {
       userLocation = currentLocation;
-      Future.delayed(const Duration(seconds: 1));
       getAddress(userLocation!.latitude, userLocation!.longitude).then((value) {
         address = value;
       });
@@ -57,7 +56,6 @@ class LocationProvider with ChangeNotifier {
     this.longitude = longitude;
     GeoCode geoCode = GeoCode();
     Address address = await geoCode.reverseGeocoding(latitude: latitude, longitude: longitude);
-    print(address.streetAddress);
     return address;
   }
 

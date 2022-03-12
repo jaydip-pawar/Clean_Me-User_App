@@ -2,7 +2,6 @@ import 'package:clean_me/providers/authentication_provider.dart';
 import 'package:clean_me/screens/login/signup_screen.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -249,7 +248,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       GestureDetector(
                         onTap: () =>
-                            Navigator.pushNamed(context, SignupPage.id),
+                            Navigator.pushReplacementNamed(context, SignupPage.id),
                         child: const Text(
                           "Sign up",
                           style: TextStyle(
