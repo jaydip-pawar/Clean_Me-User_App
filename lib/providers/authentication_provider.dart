@@ -1,15 +1,18 @@
 import 'package:clean_me/models/dialog_box.dart';
+import 'package:clean_me/models/locationNavigator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationProvider with ChangeNotifier {
+  final firestoreInstance = FirebaseFirestore.instance;
 
   void login(String email, String password, BuildContext context) async {
     EasyLoading.show(status: "Please wait...");
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
       EasyLoading.showSuccess("Login Successful");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -37,12 +40,13 @@ class AuthenticationProvider with ChangeNotifier {
     }
   }
 
-  void signUp(String email, String password, BuildContext context) async {
+  void signUp(String name, String email, String password, int mobileNumber,
+      BuildContext context) async {
     EasyLoading.show(status: "Please wait...");
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      EasyLoading.showSuccess("Signup Successful");
+      addUserData(name, email, mobileNumber, context);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         EasyLoading.dismiss();
@@ -57,14 +61,25 @@ class AuthenticationProvider with ChangeNotifier {
       }
     } catch (e) {
       EasyLoading.dismiss();
-      print(e);
     }
   }
 
   void signOut() async {
     await FirebaseAuth.instance.signOut();
-    await GoogleSignIn().disconnect();
-    await GoogleSignIn().signOut();
   }
 
+  void addUserData(
+      String name, String email, int mobileNumber, BuildContext context) {
+    var firebaseUser = FirebaseAuth.instance.currentUser;
+    firestoreInstance.collection("user_data").doc(firebaseUser!.uid).set({
+      "name": name,
+      "email": email,
+      "mobile_number": mobileNumber,
+      "uid": firebaseUser.uid,
+    }).then((_) {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (_) => const LocationNavigatePage()));
+      EasyLoading.showSuccess("Signup Successful");
+    }).catchError((error) => print("Failed to add user: $error"));
+  }
 }

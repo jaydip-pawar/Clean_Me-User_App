@@ -1,4 +1,5 @@
 import 'package:clean_me/providers/authentication_provider.dart';
+import 'package:clean_me/screens/login/login_screen.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,7 @@ class _SignupPageState extends State<SignupPage> {
   String _name = "", _email = "", _password = "", _mobileNumber = "", _confirmPassword = "";
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   void _toggle(){
     setState(() {
@@ -34,7 +35,7 @@ class _SignupPageState extends State<SignupPage> {
     void validateSignup() {
       if(_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-        authentication.signUp(_email, _password, context);
+        authentication.signUp(_name, _email, _password, int.parse(_mobileNumber), context);
       }
     }
 
@@ -139,7 +140,7 @@ class _SignupPageState extends State<SignupPage> {
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                   ),
                   validator: (mobileNumber) {
-                    if (mobileNumber!.isEmpty || mobileNumber == null) {
+                    if (mobileNumber!.isEmpty) {
                       return 'Please Enter mobile number';
                     } else if (mobileNumber.length < 10 ) {
                       return 'Invalid mobile number';
@@ -305,7 +306,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
+                          Navigator.pushNamed(context, LoginScreen.id);
                         },
                         child: const Text(
                           "Sign in.",
