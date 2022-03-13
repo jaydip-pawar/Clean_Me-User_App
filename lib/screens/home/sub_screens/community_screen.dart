@@ -20,14 +20,11 @@ class _CommunityScreenState extends State<CommunityScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-                children: [
-                  //proile photo
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      shape: BoxShape.circle,
+                children: const [
+                  CircleAvatar(
+                    backgroundColor: Colors.grey,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage("https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
                     ),
                   ),
                   SizedBox(
@@ -39,14 +36,14 @@ class _CommunityScreenState extends State<CommunityScreen> {
                   )
                 ],
               ),
-              Icon(Icons.menu)
+              const Icon(Icons.more_vert)
             ],
           ),
         ),
         //post
         Container(
-          height: 380,
           color: Colors.grey[300],
+          child: Image.asset("assets/images/event8.jpg"),
         ),
         //below the post -> buttons and comments
         Padding(
@@ -55,16 +52,16 @@ class _CommunityScreenState extends State<CommunityScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-                children: [
+                children: const [
                   Icon(Icons.favorite),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    padding: EdgeInsets.symmetric(horizontal: 12.0),
                     child: Icon(Icons.chat_bubble_outline),
                   ),
                   Icon(Icons.share),
                 ],
               ),
-              Icon(Icons.bookmark),
+              const Icon(Icons.bookmark),
             ],
           ),
         ),
@@ -72,7 +69,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
         //comments
         Padding(
           padding: const EdgeInsets.only(left: 16.0),
-          child: Row(children: [
+          child: Row(children: const [
             Text('Liked by'),
             Text(
               'Samarth',
