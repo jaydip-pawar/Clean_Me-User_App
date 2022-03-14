@@ -1,4 +1,3 @@
-import 'package:clean_me/screens/home/widgets/gallery_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -79,36 +78,66 @@ class ProfilePage extends StatelessWidget {
             'LEVEL 5',
             style: TextStyle(fontSize: 20, color: Colors.black87),
           ),
-          Container(
-            padding: const EdgeInsets.all(20),
-            child: LinearPercentIndicator(
-              width: 180.0,
-              //lineWidth: 15.0,
-              lineHeight: 15,
-              percent: 50 / 100,
-              animation: true,
-              animationDuration: 2000,
-              leading: const Text(
-                "50%",
-                style: TextStyle(fontSize: 20),
+          Row(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(left: 10.0, right: 5.0),
+                child: Text(
+                  "Lvl. 5",
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
-              trailing: const Text(
-                "150/300",
-                style: TextStyle(fontSize: 20, color: Colors.blueGrey),
+              Flexible(
+                child: LinearPercentIndicator(
+                  //lineWidth: 15.0,
+                  lineHeight: 5,
+                  percent: 50 / 100,
+                  animation: true,
+                  animationDuration: 2000,
+                  progressColor: Colors.blueGrey,
+                ),
               ),
-              progressColor: Colors.blueGrey,
-            ),
+              const Padding(
+                padding: EdgeInsets.only(right: 10.0, left: 5.0),
+                child: Text(
+                  "150/300",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.blueGrey,
+                  ),
+                ),
+              )
+            ],
+          ),
+          Divider(
+            height: 15,
+            thickness: 2
           ),
           Flexible(
-            child: GridView(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 1.0,
-                mainAxisSpacing: 1.0,
+            child: Container(
+              child: GridView(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 1.0,
+                    crossAxisSpacing: 1.0),
+                children: [
+                  Image.network(
+                      "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
+                      fit: BoxFit.cover),
+                  Image.network(
+                      "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
+                      fit: BoxFit.cover),
+                  Image.network(
+                      "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
+                      fit: BoxFit.cover),
+                  Image.network(
+                      "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
+                      fit: BoxFit.cover),
+                  Image.network(
+                      "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
+                      fit: BoxFit.cover),
+                ],
               ),
-              children: [
-                Gallery(),
-              ],
             ),
           ),
         ],
