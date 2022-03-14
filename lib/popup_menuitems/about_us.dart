@@ -195,7 +195,7 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: Color(0xFF051106),
                         borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(80.0),
+                          topRight: Radius.circular(80.0),
                         ),
                         boxShadow: [
                           BoxShadow(
@@ -241,7 +241,7 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: Color(0xFF051106),
                         borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(80.0),
+                          topRight: Radius.circular(80.0),
                         ),
                         boxShadow: [
                           BoxShadow(
@@ -288,7 +288,7 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: Color(0xFF051106),
                         borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(80.0),
+                          topRight: Radius.circular(80.0),
                         ),
                         boxShadow: [
                           BoxShadow(
