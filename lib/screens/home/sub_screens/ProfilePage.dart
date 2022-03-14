@@ -20,6 +20,62 @@ class ProfilePage extends StatelessWidget {
               ),
             ],
           ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Align(
+                alignment: Alignment.centerLeft,
+                child:
+                Text(
+                  '168 ',
+                  style: TextStyle(fontSize: 20, color: Colors.black87),
+
+                ),
+              ),
+            ],
+
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Align(
+                alignment: Alignment.centerLeft,
+                child:
+                Text(
+                  'Problems Posted',
+                ),
+              ),
+            ],
+
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Align(
+                alignment: Alignment.centerRight,
+                child:
+                Text(
+                  '40 ',
+                  style: TextStyle(fontSize: 20, color: Colors.black87),
+
+                ),
+              ),
+            ],
+
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Align(
+                alignment: Alignment.centerRight,
+                child:
+                Text(
+                  'Problems Resolved',
+                ),
+              ),
+            ],
+
+          ),
 
           Container(
             padding: const EdgeInsets.all(10.0),
@@ -35,9 +91,13 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ),
+
+
+
           Padding(
             padding: const EdgeInsets.only(),
             child: CircleAvatar(
+
               backgroundColor: Colors.black54,
               child: IconButton(
                 icon: const Icon(
@@ -48,14 +108,22 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ),
+
           Column(
-            children: const [
-              Text(
-                'LEVEL 5',
-                style: TextStyle(fontSize: 30, color: Colors.black54),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Align(
+                alignment: Alignment.center,
+                child:
+                Text(
+                  'LEVEL 5',
+                  style: TextStyle(fontSize: 20, color: Colors.black87),
+                ),
               ),
             ],
+
           ),
+
           Container(
               padding: const EdgeInsets.all(20),
               child: LinearPercentIndicator(
@@ -75,9 +143,7 @@ class ProfilePage extends StatelessWidget {
                 ),
                 progressColor: Colors.blueGrey,
               )),
-          Column(
 
-          ),
       Expanded(
         child: GridView(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
