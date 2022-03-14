@@ -1,4 +1,5 @@
 import 'package:clean_me/constants.dart';
+import 'package:clean_me/providers/authentication_provider.dart';
 import 'package:clean_me/providers/location_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,7 @@ class _MyAppBarState extends State<MyAppBar> {
   @override
   Widget build(BuildContext context) {
     final locationProvider = Provider.of<LocationProvider>(context);
+    final authentication = Provider.of<AuthenticationProvider>(context);
 
     return SafeArea(
       child: Row(
@@ -51,7 +53,7 @@ class _MyAppBarState extends State<MyAppBar> {
               IconButton(
                 icon: const Icon(Icons.notifications),
                 onPressed: () {
-                  // authentication.signOut();
+                  // TODO: Navigate to Notification Screen
                 },
               ),
               PopupMenuButton(
@@ -119,7 +121,17 @@ class _MyAppBarState extends State<MyAppBar> {
                   ),
                 ],
                 onSelected: (item) => {
-                  print(item),
+                  if(item == 0) {
+                    //TODO: Navigate To About
+                  } else if(item == 1) {
+                    //TODO: Navigate To Contact us
+                  } else if(item == 2) {
+                    //TODO: Navigate To Rate us
+                  } else if(item == 3) {
+                    //TODO: Navigate To Help
+                  } else {
+                    authentication.signOut()
+                  }
                 },
               ),
             ],
