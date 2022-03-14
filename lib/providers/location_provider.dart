@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocode/geocode.dart';
 import 'package:location/location.dart';
@@ -48,8 +49,24 @@ class LocationProvider with ChangeNotifier {
     return "Success";
   }
 
-  void locationDispose() {
-    stream.cancel();
+  Future<GeoPoint> getGeoPoint() async {
+    GeoPoint geoPoint = const GeoPoint(0, 0);
+    await location.getLocation().then((location) {
+      geoPoint = GeoPoint(getLatitude(location.latitude), getLongitude(location.longitude));
+    });
+    return geoPoint;
+  }
+
+  double getLatitude(latitude) {
+    return latitude;
+  }
+
+  double getLongitude(longitude) {
+    return longitude;
+  }
+
+  String getSAddress(address) {
+    return address;
   }
 
   Future<Address> getAddress(latitude, longitude) async {

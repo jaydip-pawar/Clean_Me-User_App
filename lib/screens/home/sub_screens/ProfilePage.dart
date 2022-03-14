@@ -106,7 +106,7 @@ class ProfilePage extends StatelessWidget {
               )
             ],
           ),
-          Divider(
+          const Divider(
             height: 15,
             thickness: 2
           ),

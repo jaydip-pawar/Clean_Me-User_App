@@ -1,6 +1,6 @@
 import 'package:clean_me/constants.dart';
-import 'package:clean_me/popup_menuitems/about_us.dart';
 import 'package:clean_me/providers/authentication_provider.dart';
+import 'package:clean_me/providers/complaint_provider.dart';
 import 'package:clean_me/providers/location_provider.dart';
 import 'package:clean_me/screens/splash_screen.dart';
 import 'package:clean_me/theme.dart';
@@ -20,9 +20,9 @@ void main() {
         ChangeNotifierProvider(
           create: (_) => LocationProvider(),
         ),
-        // ChangeNotifierProvider(
-        //   create: (_) => HotelProvider(),
-        // ),
+        ChangeNotifierProvider(
+          create: (_) => ComplaintProvider(),
+        ),
         // ChangeNotifierProvider(
         //   create: (_) => CartProvider(),
         // ),
@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'E-Grocery',
       theme: theme(),
-      home: const AboutUs(),
+      home: const SplashScreen(),
       routes: routes,
       builder: EasyLoading.init(),
     );
