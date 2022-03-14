@@ -1,4 +1,5 @@
 import 'package:clean_me/constants.dart';
+import 'package:clean_me/popup_menuitems/about_us.dart';
 import 'package:clean_me/providers/authentication_provider.dart';
 import 'package:clean_me/providers/location_provider.dart';
 import 'package:flutter/material.dart';
@@ -121,17 +122,28 @@ class _MyAppBarState extends State<MyAppBar> {
                   ),
                 ],
                 onSelected: (item) => {
-                  if(item == 0) {
-                    //TODO: Navigate To About
-                  } else if(item == 1) {
-                    //TODO: Navigate To Contact us
-                  } else if(item == 2) {
-                    //TODO: Navigate To Rate us
-                  } else if(item == 3) {
-                    //TODO: Navigate To Help
-                  } else {
-                    authentication.signOut()
-                  }
+                  if (item == 0)
+                    {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AboutUs()),
+                      )
+                    }
+                  else if (item == 1)
+                    {
+                      //TODO: Navigate To Contact us
+                    }
+                  else if (item == 2)
+                    {
+                      //TODO: Navigate To Rate us
+                    }
+                  else if (item == 3)
+                    {
+                      //TODO: Navigate To Help
+                    }
+                  else
+                    {authentication.signOut()}
                 },
               ),
             ],
