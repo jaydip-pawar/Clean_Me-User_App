@@ -114,6 +114,18 @@ class _MyAppBarState extends State<MyAppBar> {
                       children: const [
                         Padding(
                           padding: EdgeInsets.only(left: 3, right: 10),
+                          child: Icon(Icons.share),
+                        ),
+                        Text("Share")
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem<int>(
+                    value: 5,
+                    child: Row(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.only(left: 3, right: 10),
                           child: Icon(Icons.logout),
                         ),
                         Text("Logout")
@@ -142,6 +154,10 @@ class _MyAppBarState extends State<MyAppBar> {
                     {
                       //TODO: Navigate To Help
                     }
+                      else if (item == 4)
+                          {
+                            //TODO: Navigate To Share
+                          }
                   else
                     {authentication.signOut()}
                 },
