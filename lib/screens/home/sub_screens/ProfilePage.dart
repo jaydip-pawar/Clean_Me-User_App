@@ -16,15 +16,15 @@ class ProfilePage extends StatelessWidget {
             children: const [
               Text(
                 "George Thomas",
-                style: TextStyle(fontSize: 20, color: Colors.green),
+                style: TextStyle(fontSize: 20, color: Colors.black87),
               ),
             ],
           ),
 
           Container(
             padding: const EdgeInsets.all(10.0),
-            width: MediaQuery.of(context).size.width / 3,
-            height: MediaQuery.of(context).size.width / 3,
+            width: MediaQuery.of(context).size.width / 4,
+            height: MediaQuery.of(context).size.width / 4,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.white, width: 5),
               shape: BoxShape.circle,
@@ -52,7 +52,7 @@ class ProfilePage extends StatelessWidget {
             children: const [
               Text(
                 'LEVEL 5',
-                style: TextStyle(fontSize: 30, color: Colors.green),
+                style: TextStyle(fontSize: 30, color: Colors.black54),
               ),
             ],
           ),
@@ -70,10 +70,10 @@ class ProfilePage extends StatelessWidget {
                   style: TextStyle(fontSize: 20),
                 ),
                 trailing: const Text(
-                  "PTS:150/300",
-                  style: TextStyle(fontSize: 20, color: Colors.green),
+                  "150/300",
+                  style: TextStyle(fontSize: 20, color: Colors.blueGrey),
                 ),
-                progressColor: Colors.green,
+                progressColor: Colors.blueGrey,
               )),
           Column(
             children: const [
