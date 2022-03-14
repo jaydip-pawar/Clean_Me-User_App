@@ -1,5 +1,4 @@
 import 'package:clean_me/constants.dart';
-import 'package:clean_me/providers/authentication_provider.dart';
 import 'package:clean_me/providers/location_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +13,6 @@ class MyAppBar extends StatefulWidget {
 class _MyAppBarState extends State<MyAppBar> {
   @override
   Widget build(BuildContext context) {
-    final authentication = Provider.of<AuthenticationProvider>(context);
     final locationProvider = Provider.of<LocationProvider>(context);
 
     return SafeArea(
@@ -51,14 +49,78 @@ class _MyAppBarState extends State<MyAppBar> {
           Row(
             children: [
               IconButton(
-                icon: const Icon(Icons.power_settings_new),
+                icon: const Icon(Icons.notifications),
                 onPressed: () {
-                  authentication.signOut();
+                  // authentication.signOut();
                 },
               ),
-              IconButton(
+              PopupMenuButton(
                 icon: const Icon(Icons.more_vert),
-                onPressed: () {},
+                itemBuilder: (context) => [
+                  PopupMenuItem<int>(
+                    value: 0,
+                    child: Row(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.only(left: 3, right: 10),
+                          child: Icon(Icons.info_outlined),
+                        ),
+                        Text("About us")
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem<int>(
+                    value: 1,
+                    child: Row(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.only(left: 3, right: 10),
+                          child: Icon(Icons.contact_page_outlined),
+                        ),
+                        Text("Contact us")
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem<int>(
+                    value: 2,
+                    child: Row(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.only(left: 3, right: 10),
+                          child: Icon(Icons.star_border),
+                        ),
+                        Text("Rate us")
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem<int>(
+                    value: 3,
+                    child: Row(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.only(left: 3, right: 10),
+                          child: Icon(Icons.help_outline),
+                        ),
+                        Text("Help")
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem<int>(
+                    value: 4,
+                    child: Row(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.only(left: 3, right: 10),
+                          child: Icon(Icons.logout),
+                        ),
+                        Text("Logout")
+                      ],
+                    ),
+                  ),
+                ],
+                onSelected: (item) => {
+                  print(item),
+                },
               ),
             ],
           )
