@@ -79,13 +79,22 @@ class ProfilePage extends StatelessWidget {
             children: const [
               Text(
                 '139 Problems Posted',
-                style: TextStyle(fontSize: 20, color: Colors.black),
+                style: TextStyle(fontSize: 15, color: Colors.black),
               ),
             ],
           ),
-          Gallery(),
-        ],
+      Expanded(
+        child: GridView(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 3.0,
+          ),
+          children: [
+            Gallery(),
+          ],
+        ),
       ),
+  ]),
     );
   }
 }

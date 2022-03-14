@@ -31,8 +31,8 @@ class _GalleryState extends State<Gallery> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GridView.count(
-        crossAxisCount: 3,
-        childAspectRatio: 1.0,
+        crossAxisCount: 2,
+        childAspectRatio: 3.0,
         children: imageUrls.map(_createGridTileWidget).toList(),
       ),
     );
@@ -44,7 +44,7 @@ class _GalleryState extends State<Gallery> {
         _popupDialog = _createPopupDialog(url);
         Overlay.of(context)?.insert(_popupDialog);
       },
-      onLongPressEnd: (details) => _popupDialog?.remove(),
+      onLongPressEnd: (details) => _popupDialog.remove(),
       child: Image.network(url, fit: BoxFit.cover),
     ),
   );
