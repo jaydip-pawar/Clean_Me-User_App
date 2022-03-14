@@ -76,18 +76,15 @@ class ProfilePage extends StatelessWidget {
                 progressColor: Colors.blueGrey,
               )),
           Column(
-            children: const [
-              Text(
-                '139 Problems Posted',
-                style: TextStyle(fontSize: 15, color: Colors.black),
-              ),
-            ],
+
           ),
       Expanded(
         child: GridView(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 3.0,
+            childAspectRatio: 1.0,
+            mainAxisSpacing: 1.0,
+
           ),
           children: [
             Gallery(),
