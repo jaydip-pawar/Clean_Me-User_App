@@ -9,10 +9,7 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          const Text(
-            "George Thomas",
-            style: TextStyle(fontSize: 20, color: Colors.black87),
-          ),
+          
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -75,7 +72,7 @@ class ProfilePage extends StatelessWidget {
             ],
           ),
           const Text(
-            'LEVEL 5',
+            'Jaydip Riyaz Ahmadullah',
             style: TextStyle(fontSize: 20, color: Colors.black87),
           ),
           Row(
@@ -122,19 +119,19 @@ class ProfilePage extends StatelessWidget {
                     crossAxisSpacing: 1.0),
                 children: [
                   Image.network(
-                      "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
+                      "https://cdn.pixabay.com/photo/2017/09/08/18/20/garbage-2729608__480.jpg",
                       fit: BoxFit.cover),
                   Image.network(
-                      "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
+                      "https://3o232s43vzfttoe202fuvbc1-wpengine.netdna-ssl.com/wp-content/uploads/2021/07/25700200_web1_210702-SNE-MtDougGarbage-garbage_1.jpg",
                       fit: BoxFit.cover),
                   Image.network(
-                      "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
+                      "https://static.toiimg.com/thumb/msid-67607685,imgsize-895627,width-400,resizemode-4/67607685.jpg",
                       fit: BoxFit.cover),
                   Image.network(
-                      "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
+                      "https://static.toiimg.com/thumb/msid-81518032,width-1200,height-900,resizemode-4/.jpg",
                       fit: BoxFit.cover),
                   Image.network(
-                      "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
+                      "https://telanganatoday.com/wp-content/uploads/2021/03/garbage.jpg",
                       fit: BoxFit.cover),
                 ],
               ),

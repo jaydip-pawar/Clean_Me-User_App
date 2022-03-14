@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             const Center(
               child: Text(
-                "CLEAN-ME ",
+                "KudaCam",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
