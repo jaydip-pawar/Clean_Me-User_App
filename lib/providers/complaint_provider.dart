@@ -18,7 +18,7 @@ class ComplaintProvider with ChangeNotifier {
   void _addComplaintData(
       String url, GeoPoint location, String address) {
     var firebaseUser = FirebaseAuth.instance.currentUser;
-    FirebaseFirestore.instance.collection("complaints").doc(firebaseUser!.uid).set({
+    FirebaseFirestore.instance.collection("complaints").doc().set({
       "address": address,
       "image": url,
       "location": location,
