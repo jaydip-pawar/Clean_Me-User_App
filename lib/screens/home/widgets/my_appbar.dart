@@ -103,6 +103,18 @@ class _MyAppBarState extends State<MyAppBar> {
                       children: const [
                         Padding(
                           padding: EdgeInsets.only(left: 3, right: 10),
+                          child: Icon(Icons.share),
+                        ),
+                        Text("Share")
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem<int>(
+                    value: 5,
+                    child: Row(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.only(left: 3, right: 10),
                           child: Icon(Icons.logout),
                         ),
                         Text("Logout")
@@ -113,23 +125,31 @@ class _MyAppBarState extends State<MyAppBar> {
                 onSelected: (item) => {
                   if (item == 0)
                     {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => AboutUs())),
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => AboutUs())),
                       //TODO: Navigate To About
                     }
                   else if (item == 1)
                     {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => AboutUs())),
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => AboutUs())),
                       //TODO: Navigate To Contact us
                     }
                   else if (item == 2)
                     {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => AboutUs())),
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => AboutUs())),
                       //TODO: Navigate To Rate us
                     }
                   else if (item == 3)
                     {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => AboutUs())),
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => AboutUs())),
                       //TODO: Navigate To Help
+                    }
+                  else if (item == 4)
+                    {
+                      //TODO: Share Dialog
                     }
                   else
                     {
