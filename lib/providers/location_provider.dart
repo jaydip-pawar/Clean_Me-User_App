@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocode/geocode.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart';
 
 class LocationProvider with ChangeNotifier {
@@ -16,6 +17,7 @@ class LocationProvider with ChangeNotifier {
   GeoCode geoCode = GeoCode();
   late StreamSubscription<LocationData> stream;
   Location location = Location();
+  bool ready = true;
 
   Future<String> getUserCurrentLocation() async {
     // Check if location service is enable
@@ -36,15 +38,12 @@ class LocationProvider with ChangeNotifier {
       }
     }
 
-    final _locationData = await location.getLocation();
-    userLocation = _locationData;
-    stream = location.onLocationChanged.listen((LocationData currentLocation) {
+    stream = location.onLocationChanged.listen((LocationData currentLocation) async {
+      latitude = currentLocation.latitude!;
+      longitude = currentLocation.longitude!;
       userLocation = currentLocation;
-      getAddress(userLocation!.latitude, userLocation!.longitude).then((value) {
-        address = value;
-      });
+      await getAddress(userLocation!.latitude, userLocation!.longitude);
       notifyListeners();
-      Future.delayed(const Duration(seconds: 2));
     });
     return "Success";
   }
@@ -69,11 +68,29 @@ class LocationProvider with ChangeNotifier {
     return address;
   }
 
-  Future<Address> getAddress(latitude, longitude) async {
-    this.latitude = latitude;
-    this.longitude = longitude;
-    Address address = await geoCode.reverseGeocoding(latitude: latitude, longitude: longitude);
-    return address;
+  Future<void> getAddress(latitude, longitude) async {
+    try {
+      if(ready) {
+        ready = false;
+        await geoCode.reverseGeocoding(latitude: latitude, longitude: longitude).then((value) {
+          address = value;
+          ready = true;
+        });
+      }
+    } catch (e) {
+      await getAddress(userLocation!.latitude, userLocation!.longitude);
+    }
+  }
+
+  double getDistance(GeoPoint location) {
+    var distance = Geolocator.distanceBetween(
+      userLocation!.latitude ?? 00,
+      userLocation!.longitude ?? 00,
+      location.latitude,
+      location.longitude,
+    );
+    var distanceInKm = distance / 1000;
+    return double.parse(distanceInKm.toStringAsFixed(2));
   }
 
 }

@@ -1,4 +1,5 @@
 import 'package:clean_me/constants.dart';
+import 'package:clean_me/popup_menuitems/about_us.dart';
 import 'package:clean_me/providers/authentication_provider.dart';
 import 'package:clean_me/providers/location_provider.dart';
 import 'package:flutter/material.dart';
@@ -27,24 +28,13 @@ class _MyAppBarState extends State<MyAppBar> {
                 padding: EdgeInsets.only(left: 8.0, right: 8.0),
                 child: Icon(Icons.my_location_sharp),
               ),
-              FutureBuilder(
-                future: locationProvider.getUserCurrentLocation(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return SizedBox(
-                      width: width(context) * 0.6,
-                      child: Text(
-                        locationProvider.address.streetAddress == null
-                            ? "Loading Location"
-                            : "${locationProvider.address.streetAddress}",
-                        overflow: TextOverflow.fade,
-                        maxLines: 2,
-                      ),
-                    );
-                  } else {
-                    return const Text("Loading Location");
-                  }
-                },
+              SizedBox(
+                width: width(context) * 0.6,
+                child: Text(
+                  locationProvider.address.streetAddress ?? "",
+                  overflow: TextOverflow.fade,
+                  maxLines: 2,
+                ),
               ),
             ],
           ),
@@ -121,17 +111,31 @@ class _MyAppBarState extends State<MyAppBar> {
                   ),
                 ],
                 onSelected: (item) => {
-                  if(item == 0) {
-                    //TODO: Navigate To About
-                  } else if(item == 1) {
-                    //TODO: Navigate To Contact us
-                  } else if(item == 2) {
-                    //TODO: Navigate To Rate us
-                  } else if(item == 3) {
-                    //TODO: Navigate To Help
-                  } else {
-                    authentication.signOut()
-                  }
+                  if (item == 0)
+                    {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => AboutUs())),
+                      //TODO: Navigate To About
+                    }
+                  else if (item == 1)
+                    {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => AboutUs())),
+                      //TODO: Navigate To Contact us
+                    }
+                  else if (item == 2)
+                    {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => AboutUs())),
+                      //TODO: Navigate To Rate us
+                    }
+                  else if (item == 3)
+                    {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => AboutUs())),
+                      //TODO: Navigate To Help
+                    }
+                  else
+                    {
+                      locationProvider.stream.cancel(),
+                      authentication.signOut(),
+                    }
                 },
               ),
             ],

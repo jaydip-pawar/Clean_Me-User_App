@@ -1,5 +1,4 @@
 import 'package:clean_me/models/animated_fab.dart';
-import 'package:clean_me/providers/location_provider.dart';
 import 'package:clean_me/screens/home/sub_screens/community_screen.dart';
 import 'package:clean_me/screens/home/sub_screens/eventPage.dart';
 import 'package:clean_me/screens/home/sub_screens/ProfilePage.dart';
@@ -7,7 +6,6 @@ import 'package:clean_me/screens/home/sub_screens/home_screen.dart';
 import 'package:clean_me/screens/home/widgets/my_appbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);

@@ -38,12 +38,6 @@ class _AnimatedFABState extends State<AnimatedFAB>
     });
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
-
   Alignment alignment1 = Alignment.bottomCenter;
   Alignment alignment2 = Alignment.bottomCenter;
   Alignment alignment3 = Alignment.bottomCenter;
@@ -171,7 +165,7 @@ class _AnimatedFABState extends State<AnimatedFAB>
                               alignment2 = const Alignment(0, 0);
                               size2 = 50;
                             });
-                            Future.delayed(const Duration(milliseconds: 100),
+                            Future.delayed(const Duration(milliseconds: 200),
                                 () {
                               alignment3 = const Alignment(0.7, 0.4);
                               size3 = 50;

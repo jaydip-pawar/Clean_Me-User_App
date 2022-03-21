@@ -57,7 +57,6 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     }
 
     return SizedBox(
-      height: height(context) * 0.5,
       child: Stack(
         children: [
           GoogleMap(

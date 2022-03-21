@@ -1,3 +1,4 @@
+import 'package:clean_me/constants.dart';
 import 'package:clean_me/models/google_map.dart';
 import 'package:clean_me/providers/location_provider.dart';
 import 'package:clean_me/screens/home/widgets/complaint_list.dart';
@@ -16,44 +17,74 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-
     final locationProvider = Provider.of<LocationProvider>(context);
 
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
         children: [
-          const MyGoogleMap(),
-          const Padding(
-            padding: EdgeInsets.only(top: 5.0, left: 10, bottom: 5),
-            child: Text(
-              "Nearby Complaints",
-              style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold, color: Colors.black87),
-            ),
+          Positioned.fill(
+            bottom: height(context) * 0.28,
+            child: const MyGoogleMap(),
           ),
-          Flexible(
-            child: StreamBuilder<QuerySnapshot>(
-                stream: ComplaintService().complaints,
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else {
-                    return ListView(
-                      children: snapshot.data!.docs.map((doc) {
-                        return ComplaintList(
-                          image: doc.get("image"),
-                          address: doc.get("address"),
-                          startLatitude: locationProvider.latitude,
-                          startLongitude: locationProvider.longitude,
-                          endLatitude: doc.get("location").latitude,
-                          endLongitude: doc.get("location").longitude,
+          Positioned.fill(
+            child: DraggableScrollableSheet(
+              maxChildSize: 0.8,
+              minChildSize: 0.345,
+              initialChildSize: 0.37,
+              builder: (ctx, controller) {
+                return Material(
+                  elevation: 10,
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(20),
+                  ),
+                  color: Colors.white,
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: ComplaintService().complaints,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
                         );
-                      }).toList(),
-                    );
-                  }
-                },),
+                      } else {
+                        Map nearbyComplaints = snapshot.data!.docs.asMap();
+                        return ListView.builder(
+                          controller: controller,
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (BuildContext ctxt, int index) {
+                            if(index == 0) {
+                              if (locationProvider.getDistance(nearbyComplaints[index]["location"]) <= 2) {
+                                return ComplaintList(
+                                  image: nearbyComplaints[index]["image"],
+                                  address: nearbyComplaints[index]["address"],
+                                  startLatitude: locationProvider.latitude,
+                                  startLongitude: locationProvider.longitude,
+                                  endLatitude: nearbyComplaints[index]["location"].latitude,
+                                  endLongitude: nearbyComplaints[index]["location"].longitude,
+                                  isFirst: true,
+                                );
+                              }
+                            } else {
+                              if (locationProvider.getDistance(nearbyComplaints[index]["location"]) <= 2) {
+                                return ComplaintList(
+                                  image: nearbyComplaints[index]["image"],
+                                  address: nearbyComplaints[index]["address"],
+                                  startLatitude: locationProvider.latitude,
+                                  startLongitude: locationProvider.longitude,
+                                  endLatitude: nearbyComplaints[index]["location"].latitude,
+                                  endLongitude: nearbyComplaints[index]["location"].longitude,
+                                  isFirst: false,
+                                );
+                              }
+                            }
+                            return Container();
+                          },
+                        );
+                      }
+                    },
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),

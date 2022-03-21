@@ -43,7 +43,8 @@ class _SplashScreenState extends State<SplashScreen> {
               future: locationProvider.getUserCurrentLocation(),
               builder: (context, snapshot) {
                 if(snapshot.hasData) {
-                  WidgetsBinding.instance!.addPostFrameCallback((_) {
+                  WidgetsBinding.instance!.addPostFrameCallback((_) async {
+                    await Future.delayed(const Duration(seconds: 2));
                     Navigator.of(context).pushReplacementNamed(NavigatePage.id);
                   });
 
