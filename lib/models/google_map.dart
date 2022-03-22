@@ -1,5 +1,6 @@
-import 'package:clean_me/constants.dart';
 import 'package:clean_me/providers/location_provider.dart';
+import 'package:clean_me/services/map_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -14,11 +15,22 @@ class MyGoogleMap extends StatefulWidget {
 class _MyGoogleMapState extends State<MyGoogleMap> {
 
   late GoogleMapController googleMapController;
+  late BitmapDescriptor dustbinIcon;
 
   static const CameraPosition initialCameraPosition =
   CameraPosition(target: LatLng(19.0760, 72.8777), zoom: 14);
 
   Set<Marker> markers = {};
+
+  @override
+  void initState() {
+    super.initState();
+    BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(1, 1)),
+        'assets/images/dustbin.png')
+        .then((d) {
+      dustbinIcon = d;
+    });
+  }
 
   @override
   void didChangeDependencies() {
@@ -56,45 +68,66 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
       setState(() {});
     }
 
-    return SizedBox(
-      child: Stack(
-        children: [
-          GoogleMap(
-            initialCameraPosition: locationProvider.latitude == 0.0
-                ? initialCameraPosition
-                : CameraPosition(target: LatLng(locationProvider.latitude, locationProvider.longitude), zoom: 14),
-            markers: markers,
-            zoomControlsEnabled: false,
-            mapType: MapType.normal,
-            onMapCreated: (GoogleMapController controller) {
-              googleMapController = controller;
-            },
-          ),
-          Align(
-            alignment: const Alignment(0.9, 0.8),
-            child: IconButton(
-              icon: const Icon(
-                Icons.my_location_sharp,
-                size: 40,
+    return StreamBuilder<QuerySnapshot>(
+      stream: MapServices().dustbins,
+      builder: (context, snapshot) {
+        if(snapshot.hasData) {
+          Map data = snapshot.data!.docs.asMap();
+          for(int i = 0; i < snapshot.data!.docs.length; i++) {
+            markers.add(
+              Marker(
+                markerId: MarkerId("${data[i]['location'].latitude}, ${data[i]['location'].longitude}"),
+                position: LatLng(
+                  data[i]['location'].latitude,
+                  data[i]['location'].longitude,
+                ),
+                icon: dustbinIcon,
               ),
-              onPressed: () {
-                googleMapController.animateCamera(
-                  CameraUpdate.newCameraPosition(
-                    CameraPosition(
-                      target: LatLng(
-                        locationProvider.latitude,
-                        locationProvider.longitude,
-                      ),
-                      zoom: 14,
-                    ),
+            );
+          }
+        }
+
+        return SizedBox(
+          child: Stack(
+            children: [
+              GoogleMap(
+                initialCameraPosition: locationProvider.latitude == 0.0
+                    ? initialCameraPosition
+                    : CameraPosition(target: LatLng(locationProvider.latitude, locationProvider.longitude), zoom: 14),
+                markers: markers,
+                zoomControlsEnabled: false,
+                mapType: MapType.normal,
+                onMapCreated: (GoogleMapController controller) {
+                  googleMapController = controller;
+                },
+              ),
+              Align(
+                alignment: const Alignment(0.9, 0.8),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.my_location_sharp,
+                    size: 40,
                   ),
-                );
-                currentLocationMarker();
-              },
-            ),
+                  onPressed: () {
+                    googleMapController.animateCamera(
+                      CameraUpdate.newCameraPosition(
+                        CameraPosition(
+                          target: LatLng(
+                            locationProvider.latitude,
+                            locationProvider.longitude,
+                          ),
+                          zoom: 14,
+                        ),
+                      ),
+                    );
+                    currentLocationMarker();
+                  },
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      }
     );
   }
 }
