@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final locationProvider = Provider.of<LocationProvider>(context);
+    bool _first = false;
 
     return Scaffold(
       body: Stack(
@@ -51,8 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           controller: controller,
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (BuildContext ctxt, int index) {
-                            if(index == 0) {
+                            if(index == 0 || _first == true) {
                               if (locationProvider.getDistance(nearbyComplaints[index]["location"]) <= 2) {
+                                _first = false;
                                 return ComplaintList(
                                   image: nearbyComplaints[index]["image"],
                                   address: nearbyComplaints[index]["address"],
@@ -62,6 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   endLongitude: nearbyComplaints[index]["location"].longitude,
                                   isFirst: true,
                                 );
+                              } else {
+                                _first = true;
                               }
                             } else {
                               if (locationProvider.getDistance(nearbyComplaints[index]["location"]) <= 2) {

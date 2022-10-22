@@ -15,7 +15,6 @@ dependencies:
   firebase_core: ^1.13.1
   firebase_auth: ^3.3.9
   cloud_firestore: ^3.1.10
-  google_sign_in: ^5.2.4
   firebase_storage: ^10.2.9
   flutter_easyloading: ^3.0.3
   url_launcher: ^6.0.20
@@ -45,10 +44,10 @@ flutter:
     - assets/images/
     - assets/gifs/
 
-fonts:
-  - family: Netverbatim
-    fonts:
-      - asset: assets/Netverbatim_medium.ttf
+  fonts:
+    - family: Netverbatim
+      fonts:
+        - asset: fonts/Netverbatim_medium.ttf
 
   #   - family: Schyler
   #     fonts:
