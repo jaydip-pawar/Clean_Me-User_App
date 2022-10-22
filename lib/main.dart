@@ -23,12 +23,6 @@ void main() {
         ChangeNotifierProvider(
           create: (_) => ComplaintProvider(),
         ),
-        // ChangeNotifierProvider(
-        //   create: (_) => CartProvider(),
-        // ),
-        // ChangeNotifierProvider(
-        //   create: (_) => OrderProvider(),
-        // ),
       ],
       child: const MyApp(),
     ),
@@ -57,7 +51,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'E-Grocery',
+      title: 'KudaCam',
       theme: theme(),
       home: const SplashScreen(),
       routes: routes,
